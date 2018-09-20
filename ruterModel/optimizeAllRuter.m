@@ -1,7 +1,7 @@
 % OPTIMIZEALL finds optimal parameters for all conditions, subjects and
 % averages. Fits the explosion data.
 
-clear  
+clear
 
 tStart = .1056; % mean of fusion experiment fit
 % tStart = .450;  % base value used for explosion fit
