@@ -4,6 +4,8 @@ CODE USED FOR FITTING THE MEMORY BOXES MODEL TO EXPERIMENTAL DATA
 
 - OPTIMIZEALL finds optimal parameters for all conditions, subjects and averages. It also produces 
   output plots.
+  - use expType = 'ruter' to fit the vernier fusion experiment.
+  - use expType = 'E4', 'E8' or 'E18' for sequential metacontrast with 4, 8, or 18 flankers in the streams.
 
 - The FITPARAMETERSBOXES family finds the best model parameters for a given condition and subject. 
   Different members of this function family use a fixed value for certain parameters (for example,
