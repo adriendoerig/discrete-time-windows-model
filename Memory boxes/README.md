@@ -1,5 +1,6 @@
 CODE USED FOR FITTING THE MEMORY BOXES MODEL TO EXPERIMENTAL DATA
-Sequential meta-contrast and vernier fusion experiments can be handled.
+
+- Sequential meta-contrast and vernier fusion experiments can be fitted.
 
 - OPTIMIZEALL finds optimal parameters for all conditions, subjects and averages. It also produces 
   output plots.
