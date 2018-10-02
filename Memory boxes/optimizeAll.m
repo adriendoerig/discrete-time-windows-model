@@ -29,11 +29,15 @@ for expType = [{'All'}]
     
     resPath = [progPath, '\results\', expType{1}]; % path to data folder
   
-    %nSubjects = 8;
+    nSubjects = 1;
     
-    for subjectID = 1%:nSubjects+1 % LAST ENTRY contains the average over subjects
+    for subjectID = 1000%:nSubjects+1 % LAST ENTRY contains the average over subjects
         
-        disp(['optimizing ', expType{1}, ' for subject ', num2str(subjectID), ' (subject ', num2str(nSubjects+1), ' = is avg of all subjects).'])
+        if subjectID == 1000
+            disp(['optimizing ', expType{1}, ' for subject "ALL".'])
+        else
+            disp(['optimizing ', expType{1}, ' for subject ', num2str(subjectID), ' (subject ', num2str(nSubjects+1), ' = is avg of all subjects).'])
+        end
         
         cd(progPath)
         
@@ -42,7 +46,10 @@ for expType = [{'All'}]
         
         % save best params
         cd(resPath)
-        if subjectID == nSubjects+1
+        if subjectID == 1000
+            save('subject_ALL_best_parameters','pOpt')
+            plotOutputNoNDtimeChooseReadoutTime(pOpt, expType{1}, subjectID, readoutTime, ['subject_ALL_best_parameters_plot']);
+        elseif subjectID == nSubjects+1
             save('average_best_parameters','pOpt')
             plotOutputNoNDtimeChooseReadoutTime(pOpt, expType{1}, subjectID, readoutTime, 'best_average_parameters_plot');
         else
