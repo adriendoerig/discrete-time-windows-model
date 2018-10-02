@@ -12,7 +12,7 @@ NDtime = 0.3;               % [s]
 % wong & wang parameters
 wongWang_gain = 1;          % gain from boxes stage to decision stage
 wongWang_sigma = .01;       % noise from boxes stage to decision stage
-wongWang_mu0 = 25;          % wongWang "reactivity" -> high mu= = "jumpy" network
+wongWang_mu0 = 1;          % wongWang "reactivity" -> high mu = "jumpy" network
 
 % a few common stimuli to put in the boxes
 vernier = ones(1,boxLength/dt);
@@ -27,7 +27,7 @@ stimulus{2} = grating;      % box 2 content
 stimulus{3} = antivernier;  % box 3 content
 
 % run nTrials trials
-nTrials = 100;
+nTrials = 1;
 decision = zeros(1,nTrials);
 RT = decision;
 for n = 1:nTrials

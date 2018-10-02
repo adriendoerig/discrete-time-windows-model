@@ -15,6 +15,8 @@ if contains(dataType, 'E')
     [dataLength4, dataLength8, dataLength18] = makeData(); % extract explosion data from excel file
 elseif contains(dataType, 'ruter')
     data = makeDataRuter();
+elseif contains(dataType, 'All')
+    dataAll = [0.75; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.75; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.75]*100; 
 end
 
 % timeStep & create stimuli
@@ -32,6 +34,9 @@ switch dataType
     case 'ruter' % all of ruter's conditions
         stimuli = createStimuli(dt, 'ruter');
         data = data{subjectNumber}; 
+    case 'All'
+        stimuli = createStimuli(dt,'All');
+        data = dataAll;
 end
 
 % model outputs
@@ -55,7 +60,7 @@ for i = 1:conds
         successSum = successSum + success;
     end
 
-    avgModelDecisions(i) = mean(decisions{i})*100;
+    avgModelDecisions(i) = mean(decisions{i})*100 %simo deleted ; to see results
     avgRTs(i) = mean(modelRTs{i});    
 end
 

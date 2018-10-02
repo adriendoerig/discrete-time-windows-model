@@ -3,8 +3,7 @@
 
 clear
 
-% readoutTime = .45
-readoutTime = .1056;
+readoutTime = .45;
 
 % directory management
 progPath = fileparts(which(mfilename)); % The program directory
@@ -17,8 +16,8 @@ if exist([progPath, '\results\'], 'dir') == 0
 end
 
 % run over everything and optimize
-% for expType = [{'E4'}, {'E8'}, {'E18'}]
-for expType = [{'ruter'}]
+% for expType = [{'E4'}, {'E8'}, {'E18'}, {'All'}]
+for expType = [{'All'}]
     
     cd(progPath)
     
@@ -30,9 +29,9 @@ for expType = [{'ruter'}]
     
     resPath = [progPath, '\results\', expType{1}]; % path to data folder
   
-    nSubjects = 8;
+    %nSubjects = 8;
     
-    for subjectID = 1:nSubjects+1 % LAST ENTRY contains the average over subjects
+    for subjectID = 1%:nSubjects+1 % LAST ENTRY contains the average over subjects
         
         disp(['optimizing ', expType{1}, ' for subject ', num2str(subjectID), ' (subject ', num2str(nSubjects+1), ' = is avg of all subjects).'])
         

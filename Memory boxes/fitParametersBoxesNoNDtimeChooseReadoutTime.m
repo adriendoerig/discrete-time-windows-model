@@ -12,23 +12,24 @@ minErr = 100000000000000;               % minimal error (will be updated as we o
 % could not be activated, open the excel file, switch to Sheet1 and save.
 % if it still doesn't work, close and reopen matlab.
 % get experimental data
-[dataLength4, dataLength8, dataLength18] = makeData();
-
-% get experimental data
 if strcmpi(dataType,'ruter')
     disp('Loadgin Rüter''s data')
     data = makeDataRuter();
-    data = data{subjectNumber};  
-else
-    disp('Loading Leila''s data')
-    [dataLength4, dataLength8, dataLength18] = makeDataLeila();
-    switch dataType
-        case 'E4'
-            data = dataLength4{subjectNumber};     
-        case 'E8'
-            data = dataLength8{subjectNumber};
-        case 'E18'
-            data = dataLength18{subjectNumber};    
+    data = data{subjectNumber};
+else if strcmpi(dataType, 'All')
+        disp('Ideal subject Simona')
+        data = [0.75; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.75; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.75]*100;
+    else
+        disp('Loading Leila''s data')
+        [dataLength4, dataLength8, dataLength18] = makeData();
+        switch dataType
+            case 'E4'
+                data = dataLength4{subjectNumber};
+            case 'E8'
+                data = dataLength8{subjectNumber};
+            case 'E18'
+                data = dataLength18{subjectNumber};
+        end
     end
 end
         

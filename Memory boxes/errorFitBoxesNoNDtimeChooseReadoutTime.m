@@ -6,7 +6,8 @@ function [err] = errorFitBoxesNoNDtimeChooseReadoutTime(p, data, stimType, reado
 % p(1) = tauIntegrate
 % p(2) = tauDecay
 % p(3) = wongWang_gain
-% p(4) = wongWang_sigma
+% p(4) = wongWang_sigma %'noise' of precision of 1st output (i give a
+% distribution not an exact value)
 % p(5) = wongWang_mu0
 
     pT = pTransformNoNDtimeChooseReadoutTime(p); %Transforms the parameter vector such that all values to optimize vary between 0 and 1.
@@ -51,9 +52,9 @@ function [err] = errorFitBoxesNoNDtimeChooseReadoutTime(p, data, stimType, reado
         modelRTs{i} = decisions{i};
         
         for n = 1:nTrials
-            [decisions{i}(n), modelRTs{i}(n), success] = runTrial(1, stimuli{i}, dt, ...
+            [decisions{i}(n), modelRTs{i}(n), success] = runTrial(.6, stimuli{i}, dt, ...
                 0, readoutTime, pT(1), pT(2), pT(3), pT(4), pT(5));
-            successSum = successSum + success;
+            successSum = successSum + success; %success = one if decision was reached. used to optionally penalite trials when there was no decision
         end
 
         avgModelDecisions(i) = mean(decisions{i})*100;

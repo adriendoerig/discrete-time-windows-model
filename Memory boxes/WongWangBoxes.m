@@ -1,15 +1,16 @@
 function [decision, DT, success] = WongWangBoxes(v, mu0) %%% Wong & Wang, JNS 2006 appendix %%%
+% v = one number, say how sure i'm it's a vernier or antivernier (1=sure
+% it's a vernier, -1 sure it's antivernier)
 % decision = 1 for first vernier
 % DT = decision time
 % success = 1 if the network successfully reaches a decision.
 
 % in case the network fucks up and doesn't reach a decision, 
 % these are just average values so it doesn't bug during fminsearch.
-decision = 0;
+decision = 0.5;
 DT = 300;
-success = 0;
+success = 1; %success=1 I don't penalize the system if it did not take a decision
 t_stab = .5;        % [s], time to let the net stabilize
-
 
 plotting = 0; % plots network state when set to 1
 
