@@ -1,4 +1,4 @@
-function [] = plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime, plotNumber, varargin)
+function [] = plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime, varargin)
 % PLOTOUTPUT plots model output (specify parameters in p -- careful with 
 % the pTransfom function!!) alongside experimental data (specify dataType)
 % for the subject specified by subjectNumber.
@@ -50,7 +50,7 @@ successSum = 0;
 for i = 1:conds
 
     % run nTrials trials
-    nTrials = 50; %160;
+    nTrials = 160;
     decisions{i} = zeros(1,nTrials);
     modelRTs{i} = decisions{i};
 
@@ -65,7 +65,7 @@ for i = 1:conds
 end
 
 % plot
-figure(plotNumber)
+figure(9999)
 if strcmpi(dataType, 'ruter')
     bar([data', avgModelDecisions'])
 else
@@ -76,8 +76,9 @@ xlabel('condition')
 ylabel('1st vernier dominance %')
 legend('humans','model')
 % save if requested
-if nargin == 6
+if nargin == 5
     plotName = varargin{1};
+    plotName
     saveas(gcf,[plotName, '.png'])
 end
     

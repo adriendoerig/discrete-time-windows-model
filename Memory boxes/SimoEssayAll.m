@@ -11,14 +11,12 @@ wongWang_mu0 = 0.204749724562500;       % wongWang "reactivity" -> high mu = "ju
 dataType = 'All';
 subjectNumber = 7;
 readoutTime = 0.45;
-plotNumber = 1;
 
 %% vary tauIntegrate
 for tauIntegrate = 0.1:0.1:1
     p = [tauIntegrate, tauDecay, wongWang_gain, wongWang_sigma, wongWang_mu0];
     %call function
-    plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime, plotNumber);
-    plotNumber = plotNumber+1;
+    plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime, ['parameter_grid_search_', num2str(tauIntegrate)]);
 end
 tauIntegrate = 0.204876118312500;  
 
@@ -26,8 +24,7 @@ tauIntegrate = 0.204876118312500;
 for tauDecay = 0.1:0.1:1
     p = [tauIntegrate, tauDecay, wongWang_gain, wongWang_sigma, wongWang_mu0];
     %call function
-    plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime, plotNumber);
-    plotNumber = plotNumber+1;
+    plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime, ['parameter_grid_search_', num2str(tauDecay)]);
 end
 tauDecay = 0.205257993312500;
 
@@ -35,8 +32,7 @@ tauDecay = 0.205257993312500;
 for wongWang_gain = 0.1:0.1:1
     p = [tauIntegrate, tauDecay, wongWang_gain, wongWang_sigma, wongWang_mu0];
     %call function
-    plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime, plotNumber);
-    plotNumber = plotNumber+1;
+    plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime, ['parameter_grid_search_', num2str(wongWang_gain)]);
 end
 wongWang_gain = 0.204561344062500; 
 
@@ -44,8 +40,7 @@ wongWang_gain = 0.204561344062500;
 for wongWang_sigma = 0.1:0.1:1
     p = [tauIntegrate, tauDecay, wongWang_gain, wongWang_sigma, wongWang_mu0];
     %call function
-    plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime, plotNumber);
-    plotNumber = plotNumber+1;
+    plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime, ['parameter_grid_search_', num2str(wongWang_sigma)]);
 end
 wongWang_sigma = 0.204811396750000;
 
@@ -53,8 +48,7 @@ wongWang_sigma = 0.204811396750000;
 for wongWang_mu0 = 0.1:0.1:1
     p = [tauIntegrate, tauDecay, wongWang_gain, wongWang_sigma, wongWang_mu0];
     %call function
-    plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime, plotNumber);
-    plotNumber = plotNumber+1;
+    plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime,['parameter_grid_search_', num2str(wongWang_mu0)]);
 end
 wongWang_mu0 = 0.204749724562500;
 
