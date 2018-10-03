@@ -20,6 +20,7 @@ modelRTs{stimID} = decisions{stimID};
 for n = 1:nTrials
     % take boxes stage output and add gain and noise
     wongWang_input = normrnd(gain.*concatStimuli{stimID}, stdev, [stimID, length(concatStimuli{stimID})]);
+    wongWang_input = 2*(atan(2*wongWang_input))/pi; %maps [-Inf,Inf] to [0,1] ( because wongWangBoxes expects v in [0,1]
 %             figure(stimID)
 %             plot(wongWang_input)
 %             drawnow

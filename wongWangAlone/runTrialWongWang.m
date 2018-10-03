@@ -18,7 +18,7 @@ function [decision, RT, success] = runTrialWongWang(stimulus, dt, wongWang_gain,
 
 % take boxes stage output and add gain and noise
 wongWang_input = normrnd(wongWang_gain*stimulus, wongWang_sigma, [1, length(stimulus)]);
-
+wongWang_input = 2*(atan(2*wongWang_input))/pi; %maps [-Inf,Inf] to [0,1] ( because wongWangBoxes expects v in [0,1]
 % feed this to wongWang
 [decision, DT, success] = WongWangVaryingV(wongWang_input, wongWang_mu0);
 RT = DT*dt; % in [s]

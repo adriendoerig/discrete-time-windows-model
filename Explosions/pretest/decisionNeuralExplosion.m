@@ -70,7 +70,7 @@ function [RTs, perf] = decisionNeuralExplosion(stims, p)
                 if t>=t_stimTot/dt        % the decision process starts a t_start. We get the drift rate v from the buffered value in E, and use the WongWang network to make a decision.
                     E(t+1:end) = E(t+1);
                     v = normrnd(c*E(t),sigmaV);
-                    
+                    v = 2*(atan(2*v))/pi; %maps [-Inf,Inf] to [0,1] ( because wongWangBoxes expects v in [0,1]
                     % Decision stage :::: decision = 1 for first vernier; DT = decision time; success = 1 if the network successfully reaches a decision.
                     [decision, DT, ~] = WongWangNew(v, t_stab, p(3));
                     Tnd = (rand-.5)*widthTnd+meanTnd;

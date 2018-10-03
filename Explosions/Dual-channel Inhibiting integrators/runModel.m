@@ -99,6 +99,7 @@ for trial = 1:nTrials
             decisionN = decisionN + 1;
             decisionTimes(trial, decisionN) = t+1;
             v = normrnd(pE(trial,t+1),sigmaV); % Noisy input to decision stage
+            v = 2*(atan(2*v))/pi; %maps [-Inf,Inf] to [0,1] ( because wongWangBoxes expects v in [0,1]
             [decisions(trial, decisionN), DTs(trial, decisionN), ~] = WongWangNew(v, t_stab, mu0);
             aboveThresh = 1;
         end
