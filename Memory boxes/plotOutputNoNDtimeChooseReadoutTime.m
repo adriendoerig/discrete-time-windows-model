@@ -78,7 +78,6 @@ legend('humans','model')
 % save if requested
 if nargin == 5
     plotName = varargin{1};
-    plotName
     saveas(gcf,[plotName, '.png'])
 end
     
