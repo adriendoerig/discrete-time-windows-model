@@ -1,12 +1,15 @@
-function [] = plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime, varargin)
-% PLOTOUTPUT plots model output (specify parameters in p -- careful with 
-% the pTransfom function!!) alongside experimental data (specify dataType)
-% for the subject specified by subjectNumber.
+function [] = runSingleStim(p, dataType, subjectNumber, readoutTime, stimID)
+% RUNSINGLESTIM is similar to PLOTOUTPUT but only for a single stimulus
+% type instead of an entire "family". 
+% Hint: set plotMemoryTraces=1 in MEMORYBOXESDYNAMICSDIFFERENTDURATIONS 
+% to see the memories unfold. But CAREFUL! Switch it back to 0
+% subsequently.
 %
 % dataType is the experiment, e.g. 'E4'
 % subjectNumber is the ID of the subject (7 is the average data)
 % as an optional argument you can give a filename and it will save the plot
 % in the current directory under this filename, e.g. 'subject1'
+% stimID is the stimulus number as specified in createStimuli.m
 
 p = pTransformNoNDtimeChooseReadoutTime(p);
 
@@ -39,46 +42,43 @@ switch dataType
         data = dataAll;
 end
 
+stimulus = stimuli{stimID};
+
 % model outputs
-conds = length(stimuli);
+conds = 1;
 decisions = cell(1,conds);
 modelRTs = decisions;
 avgModelDecisions = zeros(1,conds);
 avgRTs = zeros(1,conds);
 successSum = 0;
 
-for i = 1:conds
+% run nTrials trials
+nTrials = 1;
+decisions = zeros(1,nTrials);
+modelRTs = decisions;
 
-    % run nTrials trials
-    nTrials = 1000;
-    decisions{i} = zeros(1,nTrials);
-    modelRTs{i} = decisions{i};
-
-    for n = 1:nTrials
-        [decisions{i}(n), modelRTs{i}(n), success] = runTrial(1, stimuli{i}, dt, ...
-            0, readoutTime, p(1), p(2), p(3), p(4), p(5));
-        successSum = successSum + success;
-    end
-
-    avgModelDecisions(i) = mean(decisions{i})*100; %simo deleted ; to see results
-    avgRTs(i) = mean(modelRTs{i});    
+for n = 1:nTrials
+    [decisions(n), modelRTs(n), success] = runTrial(1, stimulus, dt, ...
+        0, readoutTime, p(1), p(2), p(3), p(4), p(5));
+    successSum = successSum + success;
 end
+
+avgModelDecisions = mean(decisions)*100 %simo deleted ; to see results
+avgRTs = mean(modelRTs);    
 
 % plot
-figure(9999)
-if strcmpi(dataType, 'ruter')
-    bar([data', avgModelDecisions'])
-else
-    bar([data, avgModelDecisions'])
-end
-title(dataType)
-xlabel('condition')
-ylabel('1st vernier dominance %')
-legend('humans','model')
-% save if requested
-if nargin == 5
-    plotName = varargin{1};
-    saveas(gcf,[plotName, '.png'])
+plotDecisions = 0;
+if plotDecisions
+    figure(99991)
+    if strcmpi(dataType, 'ruter')
+        bar([data(stimID)', avgModelDecisions'])
+    else
+        bar([data(stimID), avgModelDecisions'])
+    end
+    title(dataType)
+    xlabel('condition')
+    ylabel('1st vernier dominance %')
+    legend('humans','model')
 end
     
     

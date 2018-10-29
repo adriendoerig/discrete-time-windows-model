@@ -28,7 +28,7 @@ p = [tauIntegrate, tauDecay, wongWang_gain, wongWang_sigma, wongWang_mu0];
 
 dataType = 'All';
 subjectNumber = 7;
-readoutTime = 0.45;
+readoutTime = 0.475;
 
 %call function
 plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime);
