@@ -137,9 +137,9 @@ switch stimType
         stimuli{20}  = [{vernier}, {longISI}, {vernier}, {ISI}, repmat([{grating}, {ISI}],1,3)]; % VPV1 E4
         stimuli{21}  = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,1), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,2)]; % VPV2 E4
         stimuli{22} = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,2), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,1)]; % VPV3 E4
-        stimuli{23}  = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,5), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,12)]; % VPV7 E8
-        stimuli{24}  = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,9), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,8)]; % VPV11 E8
-        stimuli{25} = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,12), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,5)]; % VPV14 E8
+        stimuli{23}  = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,5), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,12)]; % VPV3 E8
+        stimuli{24}  = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,9), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,8)]; % VPV5 E8
+        stimuli{25} = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,12), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,5)]; % VPV7 E8
         stimuli{26}  = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,5), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,12)]; % VPV7 E18
         stimuli{27}  = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,9), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,8)]; % VPV11 E18
         stimuli{28} = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,12), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,5)]; % VPV14 E18

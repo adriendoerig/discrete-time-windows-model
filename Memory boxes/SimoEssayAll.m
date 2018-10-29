@@ -28,8 +28,8 @@ dataType = 'All';
 subjectNumber = 7;
 readoutTime = 0.45;
 
-p = [tauIntegrate, tauDecay, wongWang_gain, wongWang_sigma, wongWang_mu0];
-plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime, ['results/parameter_grid_search/All']);
+%p = [tauIntegrate, tauDecay, wongWang_gain, wongWang_sigma, wongWang_mu0];
+%plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime, ['results/parameter_grid_search/All']);
 
 %% vary tauIntegrate
 for tauIntegrate = 0.1:0.1:1
@@ -70,5 +70,6 @@ for wongWang_mu0 = 0.1:0.1:1
     plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime,['results/parameter_grid_search/wongWang_mu0_', num2str(wongWang_mu0)]);
 end
 wongWang_mu0 = 0.204749724562500;
+
 
 
