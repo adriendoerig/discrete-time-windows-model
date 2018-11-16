@@ -93,12 +93,14 @@ if strcmpi(dataType, 'ruter')
     bar([data', avgModelDecisions'])
 else
     %bar([data, avgModelDecisions', avgwongWang_input'])
-    bar([data, avgModelDecisions', avgModelDecisions2'])
+    %bar([data, avgModelDecisions', avgModelDecisions2'])
+    bar([data,avgModelDecisions']);
 end
 title(dataType)
 xlabel('condition')
 ylabel('1st vernier dominance %')
-legend('humans','model','2windowModel','Location','Best')
+%legend('humans','model','2windowModel','Location','Best')
+legend('humans','model','Location','Best')
 % save if requested
 if nargin == 5
     plotName = varargin{1};

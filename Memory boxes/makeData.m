@@ -8,12 +8,12 @@ function [dataLength4, dataLength8, dataLength18] = makeData()
 % load from excel file NOTE: if an error comes up saying the worksheet 
 % could not be activated, open the excel file, switch to Sheet1 and save.
 % if it still doesn't work, close and reopen matlab.
-%rawDataLength4 = xlsread('Results Explosion Informed.xlsx', 'E4'); 
-%rawDataLength8 = xlsread('Results Explosion Informed.xlsx', 'E8');
-%rawDataLength18 = xlsread('Results Explosion Informed.xlsx', 'E18');
-rawDataLength4 = xlsread('Results Explosion.xlsx', 'E4'); 
-rawDataLength8 = xlsread('Results Explosion.xlsx', 'E8');
-rawDataLength18 = xlsread('Results Explosion.xlsx', 'E18');
+rawDataLength4 = xlsread('Results Explosion Informed.xlsx', 'E4'); 
+rawDataLength8 = xlsread('Results Explosion Informed.xlsx', 'E8');
+rawDataLength18 = xlsread('Results Explosion Informed.xlsx', 'E18');
+%rawDataLength4 = xlsread('Results Explosion.xlsx', 'E4'); 
+%rawDataLength8 = xlsread('Results Explosion.xlsx', 'E8');
+%rawDataLength18 = xlsread('Results Explosion.xlsx', 'E18');
 
 % remove useless entries (empty cells, nSubjects, etc) and shift averages
 % to last column.
