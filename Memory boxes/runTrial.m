@@ -1,4 +1,4 @@
-function [decision, RT, success] = runTrial(simulationTime, stimulus, dt, NDtime, readoutTime, tauIntegrate, tauDecay, wongWang_gain, wongWang_sigma, wongWang_mu0)
+function [decision, RT, success, wongWang_input] = runTrial(simulationTime, stimulus, dt, NDtime, readoutTime, tauIntegrate, tauDecay, wongWang_gain, wongWang_sigma, wongWang_mu0)
 % RUNTRIAL simulates performance on one trial and returns the answer and
 % RT.
 %
@@ -19,8 +19,7 @@ function [decision, RT, success] = runTrial(simulationTime, stimulus, dt, NDtime
 % wongWang_mu0: reactivity of the wongWang stage. high mu0 means that
 %     small differences in initial conditions lead to quick, random decisions
 
-    
-    
+     
 % compute dynamics of the memory boxes 
 summedBoxOutputs = memoryBoxesDynamicsDifferentDurations( stimulus, tauIntegrate, tauDecay, readoutTime, simulationTime, dt);
 
@@ -28,6 +27,7 @@ summedBoxOutputs = memoryBoxesDynamicsDifferentDurations( stimulus, tauIntegrate
 % wongWang range)
 wongWang_input = normrnd(wongWang_gain*summedBoxOutputs, wongWang_sigma);
 wongWang_input = 2*(atan(2*wongWang_input))/pi; %maps [-Inf,Inf] to [0,1] ( because wongWangBoxes expects v in [0,1]
+
 
 % feed this to wongWang
 [decision, DT, success] = WongWangBoxes(wongWang_input, wongWang_mu0);
