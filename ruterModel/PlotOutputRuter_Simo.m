@@ -11,7 +11,7 @@ p = [tauIntegrate, wongWang_gain, wongWang_mu0];
 
 dataType = 'E4';
 subjectNumber = 7;
-tStart = 0.3;%0.16; %value from paper
+tStart = 0.1056;
 
 %call function
 
