@@ -18,38 +18,42 @@ if exist([progPath, '\results\parameter_grid_search'], 'dir') == 0
 end
 
 % parameters necessary for plotOutputNoNDtimeChooseReadoutTime function
-tauIntegrate = 0.25;       % [s]         
-wongWang_gain = 0.73;     % gain from boxes stage to decision stage
-wongWang_mu0 = 0.2;      % wongWang "reactivity" -> high mu = "jumpy" network
+tauIntegrate = 0.53;       % [s]         
+wongWang_gain = 0.52;     % gain from boxes stage to decision stage
+wongWang_mu0 = 0.55;      % wongWang "reactivity" -> high mu = "jumpy" network
 
 dataType = 'ruter';
 subjectNumber = 7;
-readoutTime = 0.1056;%0.475;
+tStart = 0.1056;
+tStart2 = 0.475;
 
 %p = [tauIntegrate, wongWang_gain, wongWang_mu0];
 %plotOutputRuter(p, dataType, subjectNumber,tStart,['results/parameter_grid_search/All']);
 
 
 %% vary tauIntegrate
-for tauIntegrate = 0.2:0.01:0.4
+for tauIntegrate = 0.4:0.01:0.6
     p = [tauIntegrate, wongWang_gain, wongWang_mu0];
     %call function
-    plotOutputRuter(p, dataType, subjectNumber,tStart,['results/parameter_grid_search/All']);
+    plotOutputRuter(p, dataType, subjectNumber,tStart,['results/parameter_grid_search/tStart_0.1056_', num2str(p)]);
+    plotOutputRuter(p, dataType, subjectNumber,tStart2,['results/parameter_grid_search/tStart_0475', num2str(p)]);
 end
-tauIntegrate = 0.25;  
+tauIntegrate = 0.53;  
 
 %% vary wongWang_gain
-for wongWang_gain = 0.6:0.01:.8
+for wongWang_gain = 0.4:0.01:.6
     p = [tauIntegrate, wongWang_gain, wongWang_mu0];
     %call function
-    plotOutputRuter(p, dataType, subjectNumber,tStart,['results/parameter_grid_search/All']);
+    plotOutputRuter(p, dataType, subjectNumber,tStart,['results/parameter_grid_search/tStart_0.1056_', num2str(p)]);
+    plotOutputRuter(p, dataType, subjectNumber,tStart2,['results/parameter_grid_search/tStart_0475', num2str(p)]);
 end
-wongWang_gain = 0.73;
+wongWang_gain = 0.52;
 
 %% vary wongWang_mu0
-for wongWang_mu0 = 0.15:0.05:0.25
+for wongWang_mu0 = 0.4:0.01:0.6
     p = [tauIntegrate, wongWang_gain, wongWang_mu0];
     %call function
-    plotOutputRuter(p, dataType, subjectNumber,tStart,['results/parameter_grid_search/All']);
+    plotOutputRuter(p, dataType, subjectNumber,tStart,['results/parameter_grid_search/tStart_0.1056_', num2str(p)]);
+    plotOutputRuter(p, dataType, subjectNumber,tStart2,['results/parameter_grid_search/tStart_0475', num2str(p)]);
 end
-wongWang_mu0 = 0.2; 
+wongWang_mu0 = 0.55; 

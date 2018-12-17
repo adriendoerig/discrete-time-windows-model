@@ -1,4 +1,4 @@
-function [] = plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime, varargin)
+function [successSum, successSum2] = plotOutputNoNDtimeChooseReadoutTime(p, dataType, subjectNumber, readoutTime, varargin)
 % PLOTOUTPUT plots model output (specify parameters in p -- careful with 
 % the pTransfom function!!) alongside experimental data (specify dataType)
 % for the subject specified by subjectNumber.
@@ -16,9 +16,9 @@ if contains(dataType, 'E')
 elseif contains(dataType, 'ruter')
     data = makeDataRuter();
 elseif contains(dataType, 'All')
-    %dataAll = [0.75; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.75; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.75]*100;
+    dataAll = [0.75; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.75; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.75]*100;
     %for 2 window model
-    dataAll = [0.75; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.25; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.75]*100; 
+    %dataAll = [0.75; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.25; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.5; 0.25; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.9; 0.75]*100; 
 end
 
 % timeStep & create stimuli
@@ -82,6 +82,7 @@ for i = 1:conds
         avgRTs2(i) = mean(modelRTs2{i});
         avgwongWang_input2(i) = mean(wongWang_input2{i})*100;
     else
+        successSum2 = 0;
         avgModelDecisions2(i) = 0;
         avgwongWang_input2(i) = 0;        
     end
@@ -100,7 +101,7 @@ title(dataType)
 xlabel('condition')
 ylabel('1st vernier dominance %')
 %legend('humans','model','2windowModel','Location','Best')
-legend('humans','model','Location','Best')
+%legend('humans','model','WongWangInput','Location','Best')
 % save if requested
 if nargin == 5
     plotName = varargin{1};

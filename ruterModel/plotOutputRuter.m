@@ -48,34 +48,34 @@ switch dataType
                  0    , 0.05, 0.02, 0;
                  0    , 0.09, 0.02, 0;
                  0    , 0.13, 0.02, 0;
-                 0.02 , 0.05, 0.02, 0;
-                 0.02 , 0.09, 0.02, 0;
-                 0.02 , 0.13, 0.02, 0;
-                 0.02 , 0.05, 0   , 0.02;
-                 0.02 , 0.09, 0   , 0.02;
-                 0.02 , 0.13, 0   , 0.02];
+                 0.02 , 0.03, 0.02, 0;
+                 0.02 , 0.07, 0.02, 0;
+                 0.02 , 0.11, 0.02, 0;
+                 0.02 , 0.03, 0   , 0.02;
+                 0.02 , 0.07, 0   , 0.02;
+                 0.02 , 0.11, 0   , 0.02];
     case 'E8'
         conds = [0.02 , 0   , 0   , 0;
                  0    , 0.13, 0.02, 0;
                  0    , 0.21, 0.02, 0;
                  0    , 0.29, 0.02, 0;
-                 0.02 , 0.13, 0.02, 0;
-                 0.02 , 0.21, 0.02, 0;
-                 0.02 , 0.29, 0.02, 0;
-                 0.02 , 0.13, 0   , 0.02;
-                 0.02 , 0.21, 0   , 0.02;
-                 0.02 , 0.29, 0   , 0.02];
+                 0.02 , 0.11, 0.02, 0;
+                 0.02 , 0.19, 0.02, 0;
+                 0.02 , 0.27, 0.02, 0;
+                 0.02 , 0.11, 0   , 0.02;
+                 0.02 , 0.19, 0   , 0.02;
+                 0.02 , 0.27, 0   , 0.02];
     case 'E18'
         conds = [0.02 , 0   , 0   , 0;
                  0    , 0.29, 0.02, 0;
                  0    , 0.45, 0.02, 0;
                  0    , 0.57, 0.02, 0;
-                 0.02 , 0.29, 0.02, 0;
-                 0.02 , 0.45, 0.02, 0;
-                 0.02 , 0.57, 0.02, 0;
-                 0.02 , 0.29, 0   , 0.02;
-                 0.02 , 0.45, 0   , 0.02;
-                 0.02 , 0.57, 0   , 0.02];
+                 0.02 , 0.27, 0.02, 0;
+                 0.02 , 0.43, 0.02, 0;
+                 0.02 , 0.55, 0.02, 0;
+                 0.02 , 0.27, 0   , 0.02;
+                 0.02 , 0.43, 0   , 0.02;
+                 0.02 , 0.55, 0   , 0.02];
 end
 
 nConds = size(conds,1);
@@ -92,20 +92,20 @@ decisions = cell(1,nConds);
 modelRTs = decisions;
 avgModelDecisions = zeros(1,nConds);
 avgRTs = zeros(1,nConds);
-successSum = 0;
+successSum = zeros(1,nConds);
 
 for i = 1:nConds
     % run nTrials trials
-    nTrials = 160;
+    nTrials = 1000;%160;;
     decisions{i} = zeros(1,nTrials);
     modelRTs{i} = decisions{i};
 
     for n = 1:nTrials
-        [modelRTs{i}, decisions{i}(n), success] = decisionNeuralNew(conds(i,:), [pT(1), pT(2), pT(3), tStart, 0.02, 0.3]);
+        [modelRTs{i}, decisions{i}(n), success] = decisionNeuralNew(conds(i,:), [pT(1), pT(2), pT(3), tStart, 0.02, 0.3], dataType);
 %             modelRTs{i}(n) = modelRTs{i}(n)*dt; % in [s]
-        successSum = successSum + success;
+        successSum(i) = successSum(i) + success;
     end
-
+    
     avgModelDecisions(i) = mean(decisions{i})*100;
     avgRTs(i) = mean(modelRTs{i});    
 end
@@ -113,14 +113,14 @@ end
 % plot
 figure(1)
 if strcmpi(dataType, 'ruter')
-    bar([data', avgModelDecisions'])
+    bar([data', avgModelDecisions', successSum'/10])
 else
-    bar([data, avgModelDecisions'])
+    bar([data, avgModelDecisions', successSum'/10])
 end
-title(dataType)
+title(dataType) %, ' Success sum ', num2str(successSum)])
 xlabel('condition')
 ylabel('1st vernier dominance %')
-legend('humans','model')
+legend('humans','model', 'successSum /10', 'Location','Best')
 % save if requested
 if nargin == 5
     plotName = varargin{1};

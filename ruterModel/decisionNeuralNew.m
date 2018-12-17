@@ -1,4 +1,4 @@
-function [RTs, perf, success] = decisionNeuralNew(stims, p)
+function [RTs, perf, success] = decisionNeuralNew(stims, p, stimType)
 %DECISIONNEURALNEW Runs the stimuli (representing vernier-antivernier) given in "stims" through a two-stage
 % decision model. The integration stage is the same as in Rüter et al.,
 % 2012. The decision stage is the neural network simplification by
@@ -43,6 +43,9 @@ function [RTs, perf, success] = decisionNeuralNew(stims, p)
     if numel(stims) == 2
         input(1:t_stimA/dt) = 1;
         input(t_stimA/dt:(t_stimA+t_stimB)/dt) = -1;
+        t_stimC = 0;
+        t_stimD = 0;
+        stimDuration = t_stimA+t_stimB;
     elseif numel(stims) == 4
         t_stimC = stims(3);
         t_stimD = stims(4);
@@ -54,6 +57,14 @@ function [RTs, perf, success] = decisionNeuralNew(stims, p)
         end
         input(int32((t_stimA+t_stimB)/dt):int32((t_stimA+t_stimB+t_stimC)/dt)) = -1;
         input(int32((t_stimA+t_stimB+t_stimC)/dt):int32((t_stimA+t_stimB+t_stimC+t_stimD)/dt)) = 1;
+        switch stimType
+            case 'E4'
+                stimDuration = .210/dt;
+            case 'E8'
+                stimDuration = .370/dt;
+            case 'E18'
+                stimDuration = .770/dt;
+        end
     else
         error('stims must have 2 or 4 entries')
     end
@@ -64,7 +75,7 @@ function [RTs, perf, success] = decisionNeuralNew(stims, p)
 
     % decision process variables
     c = p(2);
-    sigmaV = 0.05; % 2;
+    sigmaV = 0.2; % 0.05 before
 
     % non-decisional time variables [s]
     widthTnd = p(5);
@@ -75,12 +86,12 @@ function [RTs, perf, success] = decisionNeuralNew(stims, p)
         close all
         
         % main loop if sitmulus duration < t_start
-        if (t_stimA+t_stimB)<=t_start
+        if stimDuration<=t_start
             
             buffer = 0;  % at the end of the stimulus, buffer will be set to one so that E(t) is written in the buffer.
             
             for t=1:T-1
-                if t == (t_stimA+t_stimB)/dt % buffer at the end of stim presentation
+                if t == (t_stimA+t_stimB+t_stimC+t_stimD)/dt % buffer at the end of stim presentation
                     buffer = 1;
                 end
                 
@@ -91,6 +102,7 @@ function [RTs, perf, success] = decisionNeuralNew(stims, p)
                 end               
                                 
                 if t>=t_start/dt        % the decision process starts a t_start. We get the drift rate v from the buffered value in E, and use the WongWang network to make a decision.
+                    
                     v = normrnd(c*E(t),sigmaV);
                     v = 2*(atan(2*v))/pi; %maps [-Inf,Inf] to [0,1] ( because wongWangBoxes expects v in [0,1]
                     % Decision stage :::: decision = 1 for first vernier; DT = decision time; success = 1 if the network successfully reaches a decision.
@@ -116,21 +128,21 @@ function [RTs, perf, success] = decisionNeuralNew(stims, p)
         end
         
         % main loop if stimulus duration > t_start
-        if (t_stimA+t_stimB)>t_start
-            
+        if stimDuration>t_start
+
             buffer = 0;     % at the end of the stimulus, buffer will be set to one so that E(t) is written in the buffer.
             vtemp = zeros(1,T); % we will run the WongWangVaryingV script on output values of v starting at t_start (we will set values of v for t<t_start to 0).
             
             for t=1:T-1 % fill vector v
                 
-                if buffer == 0; % before the end of the stimulus, integration happens (even after t_start)
-                    E(t+1) = E(t)*(1-dt/tau) + input(t)*dt;
-                end
+%                 if buffer == 0 % before the end of the stimulus, integration happens (even after t_start)
+                E(t+1) = E(t)*(1-dt/tau) + input(t)*dt;
+%                 end
                 
-                if t==(t_stimA+t_stimB)/dt && buffer == 0  % buffering of E(t) at the end of stimulus
-                        E(t+1:end) = E(t+1);
-                        buffer = 1;
-                end
+%                 if t==(t_stimA+t_stimB+t_stimC+t_stimD)/dt && buffer == 0  % buffering of E(t) at the end of stimulus
+%                         E(t+1:end) = E(t+1);
+%                         buffer = 1;
+%                 end
                 
                 if t > t_start/dt % at t_start (which is before the end of the stimulus), feed the output of integration to the decision process (of course, t is (t_start/dt) steps ahead of the vtemp index)
                      vtemp(t) = normrnd(c*E(t),sigmaV);

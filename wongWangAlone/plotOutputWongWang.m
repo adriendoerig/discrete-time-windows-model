@@ -1,4 +1,5 @@
-function [] = plotOutputWongWang(p, dataType, subjectNumber, varargin)
+%function [] = plotOutputWongWang(p, dataType, subjectNumber, varargin)
+function [successSum] = plotOutputWongWang(p, dataType, subjectNumber, varargin)
 % PLOTOUTPUT plots model output (specify parameters in p -- careful with 
 % the pTransfom function!!) alongside experimental data (specify dataType)
 % for the subject specified by subjectNumber.
@@ -53,7 +54,7 @@ concatStimuli = cell(1,length(stimuli));
 for i = 1:conds
 
     % run nTrials trials
-    nTrials = 160;
+    nTrials = 1000; %0;
     decisions{i} = zeros(1,nTrials);
     modelRTs{i} = decisions{i};
 
@@ -67,7 +68,7 @@ for i = 1:conds
         successSum = successSum + success;
     end
 
-    avgModelDecisions(i) = mean(decisions{i})*100;
+    avgModelDecisions(i) = mean(decisions{i})*100 %;
     avgRTs(i) = mean(modelRTs{i});    
 end
 
@@ -77,7 +78,7 @@ bar([data, avgModelDecisions'])
 title(dataType)
 xlabel('condition')
 ylabel('1st vernier dominance %')
-legend('humans','model')
+legend('humans','model','Location','Best')
 % save if requested
 if nargin == 4
     plotName = varargin{1};

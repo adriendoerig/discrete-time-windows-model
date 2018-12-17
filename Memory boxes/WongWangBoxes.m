@@ -9,7 +9,7 @@ function [decision, DT, success] = WongWangBoxes(v, mu0) %%% Wong & Wang, JNS 20
 % these are just average values so it doesn't bug during fminsearch.
 decision = 0.5;
 DT = 300;
-success = 1; %success=1 I don't penalize the system if it did not take a decision
+success = 0; %success=1 I don't penalize the system if it did not take a decision
 t_stab = .5;        % [s], time to let the net stabilize
 
 plotting = 0; % plots network state when set to 1

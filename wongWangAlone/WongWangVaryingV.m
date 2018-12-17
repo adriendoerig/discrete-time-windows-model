@@ -2,6 +2,9 @@ function [decision, RT, success] = WongWangVaryingV(v, mu0) %%% Wong & Wang, JNS
 % decision = 1 for first vernier
 % DT = decision time
 % success = 1 if the network successfully reaches a decision.
+t_stab = 0.5;
+dt = .001;
+v = [zeros(1,t_stab/dt), v];
 
 % in case the network fucks up and doesn't reach a decision, 
 % these are just average values so it doesn't bug during fminsearch.
