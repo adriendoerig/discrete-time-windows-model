@@ -81,28 +81,8 @@ switch stimType
         stimuli{8}  = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,6), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,11)]; % VPV7
         stimuli{9}  = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,10), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,7)]; % VPV11
         stimuli{10} = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,13), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,4)]; % VPV14
-    
-    case 'ruter'
-        conds = [0.004, 0.016;
-                 0.01,  0.01;
-                 0.016, 0.004;
-                 0.008, 0.032;
-                 0.02,  0.02;
-                 0.032, 0.008;
-                 0.016, 0.064;
-                 0.04,  0.04;
-                 0.064, 0.016;
-                 0.032, 0.128;
-                 0.08,  0.08;
-                 0.128, 0.032];
-             
-         nStimuli = size(conds,1);
-         stimuli = cell(1,nStimuli);
-         for i = 1:nStimuli
-             stimuli{i}  = [{ones(1,conds(i,1)/dt), -1*ones(1,conds(i,2)/dt)}, {zeros(1,1/dt);}];
-         end
          
-    case 'All'
+    case 'All'  % all stimuli in expt1 (mandatory integration expt)
         elementDuration = .02;
         isiDuration = .02;
         
@@ -143,6 +123,47 @@ switch stimType
         stimuli{26}  = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,6), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,11)]; % VPV7 E18
         stimuli{27}  = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,10), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,7)]; % VPV11 E18
         stimuli{28}  = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,13), {vernier}, {ISI}, repmat([{grating}, {ISI}],1,4)]; % VPV14 E18
+        
+    case 'Expt2a'
+        elementDuration = .02;
+        isiDuration = .02;
+        
+        % stimulus components
+        ISI = zeros(1,isiDuration/dt);
+        longISI = zeros(1,1.5*isiDuration/dt);
+        vernier = ones(1,elementDuration/dt);
+        grating = zeros(1,elementDuration/dt);
+        antivernier = -1*ones(1,elementDuration/dt);
+        
+        nStimuli = 6;
+        stimuli = cell(1,nStimuli);
+        stimuli{1}  = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,18)]; % V alone
+        stimuli{2}  = [{grating}, {longISI}, repmat([{grating}, {ISI}],1,7), {antivernier}, {ISI}, repmat([{grating}, {ISI}],1,10)]; % AV8
+        stimuli{3}  = [{grating}, {longISI}, repmat([{grating}, {ISI}],1,11), {antivernier}, {ISI}, repmat([{grating}, {ISI}],1,6)]; % AV12
+        stimuli{4}  = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,7), {antivernier}, {ISI}, repmat([{grating}, {ISI}],1,10)]; % VAV8
+        stimuli{5}  = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,11), {antivernier}, {ISI}, repmat([{grating}, {ISI}],1,6)]; % VAV12
+        stimuli{6}  = [{vernier}, {longISI}, repmat([{grating}, {ISI}],1,7), {antivernier}, {ISI}, repmat([{grating}, {ISI}],1,3), {antivernier}, {ISI}, repmat([{grating}, {ISI}],1,6)]; % VAV18PV12
+        
+
+    case 'ruter'
+        conds = [0.004, 0.016;
+                 0.01,  0.01;
+                 0.016, 0.004;
+                 0.008, 0.032;
+                 0.02,  0.02;
+                 0.032, 0.008;
+                 0.016, 0.064;
+                 0.04,  0.04;
+                 0.064, 0.016;
+                 0.032, 0.128;
+                 0.08,  0.08;
+                 0.128, 0.032];
+             
+         nStimuli = size(conds,1);
+         stimuli = cell(1,nStimuli);
+         for i = 1:nStimuli
+             stimuli{i}  = [{ones(1,conds(i,1)/dt), -1*ones(1,conds(i,2)/dt)}, {zeros(1,1/dt);}];
+         end
 end
 
 
